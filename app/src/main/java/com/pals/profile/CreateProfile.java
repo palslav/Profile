@@ -9,6 +9,9 @@ import android.graphics.Path;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -126,5 +129,23 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
         Intent nextIntent = new Intent(this, ProfileSetupComplete.class);
         startActivityForResult(nextIntent, 1001);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.setup_complete_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==R.id.menu_show_db){
+            Intent dbMenuIntent = new Intent(getApplicationContext(), Database.class);
+            startActivity(dbMenuIntent);
+            return true;
+        } else
+            return super.onOptionsItemSelected(item);
     }
 }
