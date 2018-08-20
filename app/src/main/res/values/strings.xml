@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Profile</string>
+    <string name="setup_complete">Your profile setup is complete</string>
+</resources>
