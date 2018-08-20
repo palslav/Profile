@@ -18,7 +18,7 @@ import android.widget.RadioGroup;
 
 public class CreateProfile extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etName, etAddress, et_Lisence;
+    EditText etName, etAddress, etLicense;
     ImageView ivProfilePic;
     ImageButton ibAddPic, ibNext;
     RadioGroup rgGender;
@@ -32,7 +32,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
         etName = (EditText) findViewById(R.id.et_name);
         etAddress = (EditText) findViewById(R.id.et_address);
-        et_Lisence = (EditText) findViewById(R.id.et_lisence);
+        etLicense = (EditText) findViewById(R.id.et_license);
 
         ivProfilePic = (ImageView) findViewById(R.id.iv_profile_pic);
         ibAddPic = (ImageButton) findViewById(R.id.ib_add_pic);
@@ -70,7 +70,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
             ivProfilePic.setImageBitmap(b1);
         } else if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
-            et_Lisence.setText("");
+            etLicense.setText("");
             etAddress.setText("");
             etName.setText("");
             ivProfilePic.setImageDrawable(this.getDrawable(R.drawable.default_profile_pic));
@@ -101,7 +101,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
 
         String name = etName.getText().toString();
         String address = etAddress.getText().toString();
-        String lisence = et_Lisence.getText().toString();
+        String lisence = etLicense.getText().toString();
         String imagePath = "default_path";
         int selectedGender = rgGender.getCheckedRadioButtonId();
         RadioButton rb =  (findViewById(selectedGender));
@@ -109,7 +109,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         if (rb != null)  {
              gender = rb.getText().toString();
         }
-        if (name.isEmpty())  {
+        /*if (name.isEmpty())  {
             etName.setHint("Please Enter Valid name");
             return;
         }
@@ -118,9 +118,9 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
             return;
         }
         if (lisence.isEmpty())  {
-            et_Lisence.setHint("Please Enter Valid Lisence");
+            etLicense.setHint("Please Enter Valid Lisence");
             return;
-        }
+        }*/
         Users user = new Users(name, address, lisence, imagePath, gender);
         dbHandler.addUser(user);
 

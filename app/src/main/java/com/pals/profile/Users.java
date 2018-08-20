@@ -4,7 +4,7 @@ public class Users {
     int id;
     String user_name;
     String user_address;
-    String user_liscence;
+    String user_license;
     String user_image_path;
     String user_gender;
 
@@ -13,7 +13,7 @@ public class Users {
     public Users(String name, String address, String lisence, String image_path, String gender){
         this.user_name = name;
         this.user_address = address;
-        this.user_liscence = lisence;
+        this.user_license = lisence;
         this.user_image_path = image_path;
         this.user_gender = gender;
     }
@@ -42,12 +42,12 @@ public class Users {
         this.user_address = user_address;
     }
 
-    public String getUser_liscence() {
-        return user_liscence;
+    public String getUser_license() {
+        return user_license;
     }
 
-    public void setUser_liscence(String user_liscence) {
-        this.user_liscence = user_liscence;
+    public void setUser_license(String user_license) {
+        this.user_license = user_license;
     }
 
     public String getUser_image_path() {

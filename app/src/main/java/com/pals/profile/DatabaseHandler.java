@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String query = "CREATE TABLE " + TABLE_USER + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_ADDRESS + " TEXT, " +  COLUMN_USER_LISENCE + " TEXT, " +
-                COLUMN_USER_IMAGE_PATH + " TEXT, " +COLUMN_USER_GENDER + " TEXT " + ");";
+                COLUMN_USER_GENDER + " TEXT, " + COLUMN_USER_IMAGE_PATH + " BLOB " + ");";
         sqLiteDatabase.execSQL(query);
     }
 
@@ -39,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_NAME, user.getUser_name());
         values.put(COLUMN_USER_ADDRESS, user.getUser_address());
-        values.put(COLUMN_USER_LISENCE, user.getUser_liscence());
+        values.put(COLUMN_USER_LISENCE, user.getUser_license());
         values.put(COLUMN_USER_IMAGE_PATH, user.getUser_image_path());
         values.put(COLUMN_USER_GENDER, user.getUser_gender());
         SQLiteDatabase db = getWritableDatabase();
