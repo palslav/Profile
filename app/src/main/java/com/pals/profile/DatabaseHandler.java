@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "user_id";
     public static final String COLUMN_USER_NAME = "user_name";
     public static final String COLUMN_USER_ADDRESS = "user_address";
-    public static final String COLUMN_USER_LISENCE = "user_lisence";
+    public static final String COLUMN_USER_LICENSE = "user_license";
     public static final String COLUMN_USER_GENDER = "user_gender";
     public static final String COLUMN_USER_IMAGE = "user_image";
 
@@ -28,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String query = "CREATE TABLE " + TABLE_USER + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_ADDRESS + " TEXT, " +  COLUMN_USER_LISENCE + " TEXT, " +
+                COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_ADDRESS + " TEXT, " + COLUMN_USER_LICENSE + " TEXT, " +
                 COLUMN_USER_GENDER + " TEXT, " + COLUMN_USER_IMAGE + " BLOB " + ");";
         sqLiteDatabase.execSQL(query);
     }
@@ -43,7 +42,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_NAME, user.getUserName());
         values.put(COLUMN_USER_ADDRESS, user.getUserAddress());
-        values.put(COLUMN_USER_LISENCE, user.getUserLicense());
+        values.put(COLUMN_USER_LICENSE, user.getUserLicense());
         values.put(COLUMN_USER_GENDER, user.getUserGender());
         values.put(COLUMN_USER_IMAGE, user.getUserImage());
         SQLiteDatabase db = getWritableDatabase();
@@ -73,7 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 dbString += " ";
                 dbString += c.getString(c.getColumnIndex("user_address"));
                 dbString += " ";
-                dbString += c.getString(c.getColumnIndex("user_lisence"));
+                dbString += c.getString(c.getColumnIndex("user_license"));
                 dbString += " ";
                 dbString += c.getString(c.getColumnIndex("user_gender"));
                 /*dbString += " ";
