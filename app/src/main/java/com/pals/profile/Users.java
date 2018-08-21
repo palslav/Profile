@@ -2,20 +2,20 @@ package com.pals.profile;
 
 public class Users {
     int id;
-    String user_name;
-    String user_address;
-    String user_license;
-    String user_image_path;
-    String user_gender;
+    String userName;
+    String userAddress;
+    String userLicense;
+    String userGender;
+    byte[] userImage;
 
     public Users(){ }
 
-    public Users(String name, String address, String lisence, String image_path, String gender){
-        this.user_name = name;
-        this.user_address = address;
-        this.user_license = lisence;
-        this.user_image_path = image_path;
-        this.user_gender = gender;
+    public Users(String name, String address, String lisence, String gender, byte[] image){
+        this.userName = name;
+        this.userAddress = address;
+        this.userLicense = lisence;
+        this.userImage = image;
+        this.userGender = gender;
     }
 
     public int getId() {
@@ -26,43 +26,43 @@ public class Users {
         this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String user_name) {
+        this.userName = user_name;
     }
 
-    public String getUser_address() {
-        return user_address;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setUser_address(String user_address) {
-        this.user_address = user_address;
+    public void setUserAddress(String user_address) {
+        this.userAddress = user_address;
     }
 
-    public String getUser_license() {
-        return user_license;
+    public String getUserLicense() {
+        return userLicense;
     }
 
-    public void setUser_license(String user_license) {
-        this.user_license = user_license;
+    public void setUserLicense(String user_license) {
+        this.userLicense = user_license;
     }
 
-    public String getUser_image_path() {
-        return user_image_path;
+    public String getUserGender() {
+        return userGender;
     }
 
-    public void setUser_image_path(String user_image_path) {
-        this.user_image_path = user_image_path;
+    public void setUserGender(String user_gender) {
+        this.userGender = user_gender;
     }
 
-    public String getUser_gender() {
-        return user_gender;
+    public byte[] getUserImage() {
+        return userImage;
     }
 
-    public void setUser_gender(String user_gender) {
-        this.user_gender = user_gender;
+    public void setUserImage(byte[] userImage) {
+        this.userImage = userImage;
     }
 }

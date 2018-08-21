@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.io.ByteArrayOutputStream;
+
 public class CreateProfile extends AppCompatActivity implements View.OnClickListener {
 
     EditText etName, etAddress, etLicense;
@@ -27,6 +29,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
     RadioGroup rgGender;
 
     DatabaseHandler dbHandler;
+    byte imageInByte[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +72,14 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         if (requestCode == 1000 && resultCode == Activity.RESULT_OK) {
             String imgPath = data.getStringExtra("CameraImagePath");
             Bitmap bitmap = data.getParcelableExtra("data");
-            Bitmap b1 = GetBitmapClippedCircle(bitmap);
+            Bitmap profileImage = GetBitmapClippedCircle(bitmap);
 
-            ivProfilePic.setImageBitmap(b1);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            profileImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            imageInByte = stream.toByteArray();
+
+            ivProfilePic.setImageBitmap(profileImage);
+            //profileImage.recycle();
         } else if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             etLicense.setText("");
             etAddress.setText("");
@@ -124,7 +132,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
             etLicense.setHint("Please Enter Valid Lisence");
             return;
         }*/
-        Users user = new Users(name, address, lisence, imagePath, gender);
+        Users user = new Users(name, address, lisence, gender, imageInByte);
         dbHandler.addUser(user);
 
         Intent nextIntent = new Intent(this, ProfileSetupComplete.class);
@@ -134,14 +142,14 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.setup_complete_menu, menu);
+        inflater.inflate(R.menu.show_db_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId()==R.id.menu_show_db){
+        if(item.getItemId()==R.id.item_show_db){
             Intent dbMenuIntent = new Intent(getApplicationContext(), Database.class);
             startActivity(dbMenuIntent);
             return true;

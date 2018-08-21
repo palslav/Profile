@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "users.db";
@@ -14,8 +18,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_USER_NAME = "user_name";
     public static final String COLUMN_USER_ADDRESS = "user_address";
     public static final String COLUMN_USER_LISENCE = "user_lisence";
-    public static final String COLUMN_USER_IMAGE_PATH = "user_image_path";
     public static final String COLUMN_USER_GENDER = "user_gender";
+    public static final String COLUMN_USER_IMAGE = "user_image";
 
     public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -25,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String query = "CREATE TABLE " + TABLE_USER + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_ADDRESS + " TEXT, " +  COLUMN_USER_LISENCE + " TEXT, " +
-                COLUMN_USER_GENDER + " TEXT, " + COLUMN_USER_IMAGE_PATH + " BLOB " + ");";
+                COLUMN_USER_GENDER + " TEXT, " + COLUMN_USER_IMAGE + " BLOB " + ");";
         sqLiteDatabase.execSQL(query);
     }
 
@@ -37,11 +41,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void addUser(Users user){
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_NAME, user.getUser_name());
-        values.put(COLUMN_USER_ADDRESS, user.getUser_address());
-        values.put(COLUMN_USER_LISENCE, user.getUser_license());
-        values.put(COLUMN_USER_IMAGE_PATH, user.getUser_image_path());
-        values.put(COLUMN_USER_GENDER, user.getUser_gender());
+        values.put(COLUMN_USER_NAME, user.getUserName());
+        values.put(COLUMN_USER_ADDRESS, user.getUserAddress());
+        values.put(COLUMN_USER_LISENCE, user.getUserLicense());
+        values.put(COLUMN_USER_GENDER, user.getUserGender());
+        values.put(COLUMN_USER_IMAGE, user.getUserImage());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_USER, null, values);
         db.close();
@@ -52,8 +56,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_USER + " WHERE " + COLUMN_ID + "=\"" + userId + "\";");
     }
 
-    public String databasetoString(){
-        String dbString = "";
+    public List<String> databaseToList(){
+        List<String> dbStringList = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_USER + " WHERE 1";
 
@@ -61,7 +65,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.moveToFirst();
 
         while(!c.isAfterLast()){
-            if(c.getString(c.getColumnIndex("user_name"))!=null){
+            String dbString = "";
+            if(c.getString(c.getColumnIndex("user_id"))!=null){
                 dbString += c.getString(c.getColumnIndex("user_id"));
                 dbString += " ";
                 dbString += c.getString(c.getColumnIndex("user_name"));
@@ -70,14 +75,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 dbString += " ";
                 dbString += c.getString(c.getColumnIndex("user_lisence"));
                 dbString += " ";
-                dbString += c.getString(c.getColumnIndex("user_image_path"));
-                dbString += " ";
                 dbString += c.getString(c.getColumnIndex("user_gender"));
+                /*dbString += " ";
+                try {
+                    byte[] blob = c.getBlob(c.getColumnIndex("user_image"));
+                    dbString += new String(blob, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    c.moveToLast();
+                }*/
                 dbString += "\n";
             }
             c.moveToNext();
+            dbStringList.add(dbString);
         }
         db.close();
-        return dbString;
+        return dbStringList;
     }
 }
