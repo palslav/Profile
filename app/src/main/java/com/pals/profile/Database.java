@@ -2,6 +2,8 @@ package com.pals.profile;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -35,13 +38,14 @@ public class Database extends AppCompatActivity implements AdapterView.OnItemLon
 
         dbListView.setAdapter(dbArrayAdapter);
 
-        //dbListView.setOnItemLongClickListener(this);
         registerForContextMenu(dbListView);
+        //dbListView.setOnItemLongClickListener(this);
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-        registerForContextMenu(dbListView);
+        //registerForContextMenu(dbListView);
+        Toast.makeText(getApplicationContext(), "long click", Toast.LENGTH_SHORT);
         return true;
     }
 
@@ -50,6 +54,7 @@ public class Database extends AppCompatActivity implements AdapterView.OnItemLon
         super.onCreateContextMenu(menu, v, menuInfo);
 
         menu.add(0,0,0,"View Image");
+        //menu.add();
     }
 
     @Override
@@ -59,6 +64,12 @@ public class Database extends AppCompatActivity implements AdapterView.OnItemLon
         if(item.getItemId()==0){
             //Intent dbMenuIntent = new Intent(getApplicationContext(), Database.class);
             //startActivity(dbMenuIntent);
+
+            //SQLiteDatabase db = getApplicationContext().getWritableDatabase();
+            //byte[] imageBye = dbHandler.getProfileImage(itemPosition + 1);
+            String selectedFromList =(dbListView.getItemAtPosition(itemPosition).toString());
+            Toast.makeText(getApplicationContext(), "list details " + selectedFromList, Toast.LENGTH_SHORT).show();
+
             Dialog settingsDialog = new Dialog(this);
             settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
             settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.profile_pic_layout , null));

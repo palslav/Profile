@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,5 +91,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return dbStringList;
+    }
+
+    public byte[] getProfileImage(int id){
+        byte[] blob;
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_USER + " WHERE user_id = " + id;
+
+        Cursor c = db.rawQuery(query, null);
+        blob = c.getBlob(c.getColumnIndex("user_image"));
+
+        return blob;
     }
 }
